@@ -3,32 +3,44 @@ let JWT = require("jsonwebtoken")
 let { blacklisting } = require("../Router/Role.router")
 let app = express()
 app.use(express.json())
-
+ console.log(blacklisting)
 let authentication = (req, res, next) => {
     let token = req.headers.authorization
-
+  
+      
     if (!blacklisting.includes(token)) {
-        jwt.verify(token, 'token', function (err, decoded) {
+
+
+        JWT.verify(token, 'token', function (err, decoded) {
 
             if (err) {
-                jwt.verify(token, 'refresh', function (err, decoded) {
+
+                JWT.verify(token, 'refresh', function (err, decoded) {
+
                     if (err) {
-                        res.send("accesstoken invalid")
+
+                        res.status(404).send("accesstoken invalid")
+
                     } else {
 
                         req.body.role = decoded.role
+                    
                         next()
+
                     }
                 })
-            } else {
-                next()
 
+            } else {
                 req.body.role = decoded.role
+                next()
+                console.log(decoded)
+
+              
 
             }
         });
     } else {
-        res.send("you are logout")
+        res.status(404).send("you are logout")
     }
 }
 

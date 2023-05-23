@@ -6,7 +6,7 @@ let {ProductRouter} =  require("./Router/Product.Router")
 let app = express()
 
 
-app.use("/products",ProductRouter)
+app.use("/product",ProductRouter)
 app.use("/Role",RoleRouter)
 
 
@@ -14,6 +14,7 @@ app.listen(process.env.Port,(req,res)=>{
 
     try{
         connection
+        console.log("mongodb is running")
 
     }catch(err){
 

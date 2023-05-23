@@ -7,15 +7,16 @@ let Schema = mongoose.Schema({
     password:String,
     role:{
         type:String,
-        default:'User'
+        default:"User"
     }
+    
 
 },{
     versionKey:false
 })
 
 
-let RoleModel = mongoose.model("Role",Schema)
+let RoleModel = mongoose.model("role",Schema)
 
 module.exports = {RoleModel}
 

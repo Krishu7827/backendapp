@@ -11,26 +11,32 @@ ProductRouter.use(authentication)
 
 ProductRouter.post("/addproducts",async(req,res)=>{
 let role = req.body.role
+
     if(role !== "User"){
 
     await ProductModel.insertMany(req.body)
 
     res.send("Product added succesfully")
+
     }else{
-        res.send("your arne  not seller")
+
+        res.status(404).send("your are  not seller")
     }
 })
 
-ProductRouter.delete("/deleteproducts/id", async(req,res)=>{
-    let role = req.body.role
 
+ProductRouter.delete("/deleteproducts/:id", async(req,res)=>{
+    let role = req.body.role
+      // console.log(req.params)
     if(role !=="User" ){
 
     await ProductModel.findByIdAndDelete({_id:req.params.id})
 
     res.send("Prouduct Deleted")
     }else{
+
         res.status(404).send("you are not seller")
+
     }
 })
 
